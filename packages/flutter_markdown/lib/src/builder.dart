@@ -9,6 +9,7 @@ import 'package:markdown/markdown.dart' as md;
 import '_functions_io.dart' if (dart.library.html) '_functions_web.dart';
 import 'style_sheet.dart';
 import 'widget.dart';
+import 'video_player.dart';
 
 const List<String> _kBlockTags = <String>[
   'p',
@@ -522,6 +523,10 @@ class MarkdownBuilder implements md.NodeVisitor {
         width = double.parse(dimensions[0]);
         height = double.parse(dimensions[1]);
       }
+    }
+
+    if (shouldRenderVideo(path)) {
+      return buildVideo(path, width, height);
     }
 
     final Uri uri = Uri.parse(path);
